@@ -34,7 +34,7 @@ def webhook():
     # endpoint for processing incoming messaging events
 
     data = request.get_json()
-    log(data)  # you may not want to log every incoming message in production, but it's good for testing
+    log_wrapper(data)  # you may not want to log every incoming message in production, but it's good for testing
 
     if data["object"] == "page":
 
@@ -65,7 +65,7 @@ def webhook():
 
 def send_message(recipient_id, message_text):
 
-    log("sending message to {recipient}: {text}".format(recipient=recipient_id, text=message_text))
+    log_wrapper("sending message to {recipient}: {text}".format(recipient=recipient_id, text=message_text))
 
     params = {
         "access_token": os.environ["PAGE_ACCESS_TOKEN"]
@@ -83,11 +83,11 @@ def send_message(recipient_id, message_text):
     })
     r = requests.post("https://graph.facebook.com/v2.6/me/messages", params=params, headers=headers, data=data)
     if r.status_code != 200:
-        log(r.status_code)
-        log(r.text)
+        log_wrapper(r.status_code)
+        log_wrapper(r.text)
 
 
-def log(message):  # simple wrapper for logging to stdout on heroku
+def log_wrapper(message):  # simple wrapper for logging to stdout on heroku
     print str(message)
     sys.stdout.flush()
 
@@ -96,6 +96,7 @@ def log(message):  # simple wrapper for logging to stdout on heroku
 #         app.run(debug=True, use_reloader=False)
 
 if __name__ == '__main__':
+    print "going into main"
     app.run(debug=True)
 
 # if __name__ == '__main__':
