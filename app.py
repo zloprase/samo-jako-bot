@@ -1,3 +1,6 @@
+
+#import bot
+
 import os
 import sys
 import json
@@ -5,7 +8,6 @@ import json
 import requests
 from flask import Flask, request
 
-import bot
 
 app = Flask(__name__)
 
@@ -41,7 +43,7 @@ def webhook():
                     recipient_id = messaging_event["recipient"]["id"]  # the recipient's ID, which should be your page's facebook ID
                     message_text = "" if "text" not in messaging_event["message"] else messaging_event["message"]["text"] # the message's text
 
-                    bot_reply =  bot.get_response(None)
+                    bot_reply =  "meh"#bot.get_response(None)
 
                     send_message(sender_id, bot_reply)
 
