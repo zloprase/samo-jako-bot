@@ -10,7 +10,7 @@ def get_bot():
 	print "initiating chat bot"
 	bot = ChatBot(
 	    'Beli',
-	    storage_adapter='chatterbot.storage.JsonFileStorageAdapter', #'chatterbot.storage.MongoDatabaseAdapter', 
+	    storage_adapter='chatterbot.storage.MongoDatabaseAdapter', #'chatterbot.storage.JsonFileStorageAdapter', #
 	    logic_adapters=[
 	        {
 	            'import_path': 'chatterbot.logic.BestMatch'
@@ -21,13 +21,13 @@ def get_bot():
 	            'default_response': 'Ave Beli! 5 !'
 	        }
 	    ],
-	    #input_adapter='chatterbot.input.TerminalAdapter',
-	    #output_adapter='chatterbot.output.TerminalAdapter',
-	    input_adapter="chatterbot.input.VariableInputTypeAdapter",
-	    output_adapter="chatterbot.output.OutputAdapter",
+	    input_adapter='chatterbot.input.TerminalAdapter',
+	    output_adapter='chatterbot.output.TerminalAdapter',
+	    #input_adapter="chatterbot.input.VariableInputTypeAdapter",
+	    #output_adapter="chatterbot.output.OutputAdapter",
 	    output_format="text",
-	    database=  './database.json',#'chatterbot-database',
-	    #database_uri= os.environ['MONGODB_URI']
+	    #database=  './database.json',#'chatterbot-database',
+	    database_uri= os.environ['MONGODB_URI']
 	)
 	print "initiation complete"
 
