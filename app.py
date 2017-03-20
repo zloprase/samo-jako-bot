@@ -19,7 +19,7 @@ app = Flask(__name__)
 print "assigned flask to app"
 
 print "getting bot"
-bot = get_bot()
+#bot = get_bot()
 bot.get_response("Ave Beli!")
 
 @app.route('/', methods=['GET'])
