@@ -21,13 +21,13 @@ def get_bot():
 	            'default_response': 'Ave Beli! 5 !'
 	        }
 	    ],
-	    input_adapter='chatterbot.input.TerminalAdapter',
-	    output_adapter='chatterbot.output.TerminalAdapter',
-	    #input_adapter="chatterbot.input.VariableInputTypeAdapter",
-	    #output_adapter="chatterbot.output.OutputAdapter",
-	    #output_format="text",
-	    #database=  './database.json',#'chatterbot-database',
-	    database_uri= 'mongodb://heroku_b9glb176:e11uqg3dkr44rrenaj1th5u4o4@ds137040.mlab.com:37040/heroku_b9glb176'
+	    #input_adapter='chatterbot.input.TerminalAdapter',
+	    #output_adapter='chatterbot.output.TerminalAdapter',
+	    input_adapter="chatterbot.input.VariableInputTypeAdapter",
+	    output_adapter="chatterbot.output.OutputAdapter",
+	    output_format="text",
+	    database=  './database.json',#'chatterbot-database',
+	    #database_uri= 'mongodb://heroku_b9glb176:e11uqg3dkr44rrenaj1th5u4o4@ds137040.mlab.com:37040/heroku_b9glb176'
 	)
 	print "initiation complete"
 
