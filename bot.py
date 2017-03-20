@@ -3,13 +3,14 @@
 from chatterbot import ChatBot
 from chatterbot.trainers import ListTrainer
 import logging
+import os
 
 logging.basicConfig()
 
 print "initiating chat bot"
 bot = ChatBot(
     'Beli',
-    storage_adapter='chatterbot.storage.JsonFileStorageAdapter', #'chatterbot.storage.MongoDatabaseAdapter'
+    storage_adapter='chatterbot.storage.JsonFileStorageAdapter', #'chatterbot.storage.MongoDatabaseAdapter', 
     logic_adapters=[
         {
             'import_path': 'chatterbot.logic.BestMatch'
@@ -22,8 +23,8 @@ bot = ChatBot(
     ],
     input_adapter='chatterbot.input.TerminalAdapter',
     output_adapter='chatterbot.output.TerminalAdapter',
-    database='./database.json', #'chatterbot-database'
-    #database_uri='mongodb://beli-bot:ku1XXdzZXdE6lriGf52R4MnKKWfj1KnP@ds137040.mlab.com:37040/heroku_b9glb176'
+    database=  './database.json',#'chatterbot-database',
+    #database_uri= os.environ['MONGODB_URI']
 )
 print "initiation complete"
 
