@@ -89,7 +89,7 @@ def get_bot():
 		u'Gađaju me neke tamo agencije sa 11%, nemo se zezamo. Više verujem Najngegu. Gura čika do pobede! Sirotinja uzvraća udarac!',
 		'Ave Beli!',
 		'Do pobede!',
-		'Odoh'
+		'Odoh',
 		#u'Љуби чика идите вечерас проведите се, радујте се бољим данима, нек је весеље !'
 	])
 
