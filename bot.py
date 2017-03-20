@@ -96,10 +96,10 @@ bot.train([
 
 print "training complete"
 
-print "Start typing"
-while True:
-    try:
-     bot_input = bot.get_response(None)
+#print "Start typing"
+# while True:
+#     try:
+#      bot_input = bot.get_response(None)
 
-    except(KeyboardInterrupt, EOFError, SystemExit):
-        break
+#     except(KeyboardInterrupt, EOFError, SystemExit):
+        # break

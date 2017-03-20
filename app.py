@@ -5,6 +5,8 @@ import json
 import requests
 from flask import Flask, request
 
+import bot
+
 app = Flask(__name__)
 
 
@@ -37,9 +39,11 @@ def webhook():
 
                     sender_id = messaging_event["sender"]["id"]        # the facebook ID of the person sending you the message
                     recipient_id = messaging_event["recipient"]["id"]  # the recipient's ID, which should be your page's facebook ID
-                    message_text = messaging_event["message"]["text"]  # the message's text
+                    message_text = "" if "text" not in messaging_event["message"] else messaging_event["message"]["text"] # the message's text
 
-                    send_message(sender_id, "got it, thanks!")
+                    bot_reply =  bot.get_response(None)
+
+                    send_message(sender_id, bot_reply)
 
                 if messaging_event.get("delivery"):  # delivery confirmation
                     pass
@@ -81,6 +85,16 @@ def log(message):  # simple wrapper for logging to stdout on heroku
     print str(message)
     sys.stdout.flush()
 
+# def run_server(dom):
+#         _run_on_start("%s" % dom)
+#         app.run(debug=True, use_reloader=False)
 
 if __name__ == '__main__':
     app.run(debug=True)
+
+# if __name__ == '__main__':
+#     if len(sys.argv) < 2:
+#         raise Exception("Must provide domain for application execution.")
+#     else:
+#         DOM = sys.argv[1]
+#         run_server(DOM)
