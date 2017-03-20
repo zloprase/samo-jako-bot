@@ -3,7 +3,7 @@
 #import bot
 #print "done bot import"
 from bot import get_bot
-from chatterbot import ChatBot
+#from chatterbot import ChatBot
 
 import os
 import sys
@@ -20,7 +20,7 @@ print "assigned flask to app"
 
 print "getting bot"
 #bot = get_bot()
-bot.get_response("Ave Beli!")
+#bot.get_response("Ave Beli!")
 
 @app.route('/', methods=['GET'])
 def verify():
