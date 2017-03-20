@@ -1,5 +1,7 @@
+# -*- coding: utf-8 -*-
 
 import bot
+print "done bot import"
 
 import os
 import sys
