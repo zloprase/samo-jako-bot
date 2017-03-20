@@ -21,8 +21,11 @@ bot = ChatBot(
             'default_response': 'Ave Beli! 5 !'
         }
     ],
-    input_adapter='chatterbot.input.TerminalAdapter',
-    output_adapter='chatterbot.output.TerminalAdapter',
+    #input_adapter='chatterbot.input.TerminalAdapter',
+    #output_adapter='chatterbot.output.TerminalAdapter',
+    input_adapter="chatterbot.input.VariableInputTypeAdapter",
+    output_adapter="chatterbot.output.OutputAdapter",
+    output_format="text",
     database=  './database.json',#'chatterbot-database',
     #database_uri= os.environ['MONGODB_URI']
 )
