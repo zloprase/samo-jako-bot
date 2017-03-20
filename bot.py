@@ -10,7 +10,7 @@ def get_bot():
 	print "initiating chat bot"
 	bot = ChatBot(
 	    'Beli',
-	    storage_adapter='chatterbot.storage.MongoDatabaseAdapter', #'chatterbot.storage.JsonFileStorageAdapter', #
+	    storage_adapter='chatterbot.storage.JsonFileStorageAdapter', #'chatterbot.storage.MongoDatabaseAdapter', 
 	    logic_adapters=[
 	        {
 	            'import_path': 'chatterbot.logic.BestMatch'
