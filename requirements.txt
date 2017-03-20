@@ -31,7 +31,6 @@ python-twitter==3.2.1
 requests==2.10.0
 requests-oauthlib==0.8.0
 scandir==1.5
-setupfiles==0.0.0
 simplegeneric==0.8.1
 six==1.10.0
 traitlets==4.3.2
