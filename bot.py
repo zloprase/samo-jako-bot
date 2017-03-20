@@ -2,10 +2,10 @@
 
 from chatterbot import ChatBot
 from chatterbot.trainers import ListTrainer
-import logging
+#import logging
 import os
 
-logging.basicConfig()
+#logging.basicConfig()
 
 print "initiating chat bot"
 bot = ChatBot(
