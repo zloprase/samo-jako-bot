@@ -2,10 +2,10 @@
 
 from chatterbot import ChatBot
 from chatterbot.trainers import ListTrainer
-#import logging
+import logging
 import os
 
-#logging.basicConfig()
+logging.basicConfig()
 def get_bot():
 	print "initiating chat bot"
 	bot = ChatBot(
@@ -104,4 +104,3 @@ def get_bot():
 	#     except(KeyboardInterrupt, EOFError, SystemExit):
 	        # break
 	return bot
-	

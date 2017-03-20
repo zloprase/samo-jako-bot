@@ -3,6 +3,7 @@
 #import bot
 #print "done bot import"
 from bot import get_bot
+from chatterbot import ChatBot
 
 import os
 import sys
@@ -100,6 +101,7 @@ def log_wrapper(message):  # simple wrapper for logging to stdout on heroku
 #         _run_on_start("%s" % dom)
 #         app.run(debug=True, use_reloader=False)
 
+print "before main"
 print "almost into main - name is " + __name__ + " - condition is " + str(__name__ == '__main__')
 if __name__ == '__main__':
     print "going into main"
