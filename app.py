@@ -17,6 +17,9 @@ app = Flask(__name__)
 
 print "assigned flask to app"
 
+print "getting bot"
+bot = get_bot()
+
 @app.route('/', methods=['GET'])
 def verify():
     # when the endpoint is registered as a webhook, it must echo back
