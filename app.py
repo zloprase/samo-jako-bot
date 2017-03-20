@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 
 #import bot
-print "done bot import"
+#print "done bot import"
+from bot import get_bot
 
 import os
 import sys
