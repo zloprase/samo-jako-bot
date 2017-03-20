@@ -1,7 +1,6 @@
 appdirs==1.4.3
 appnope==0.1.0
 backports.shutil-get-terminal-size==1.0.0
-chatbot==1.5.2b0
 ChatterBot==0.5.5
 click==6.6
 decorator==4.0.11
