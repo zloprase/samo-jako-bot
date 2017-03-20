@@ -25,9 +25,9 @@ def get_bot():
 	    output_adapter='chatterbot.output.TerminalAdapter',
 	    #input_adapter="chatterbot.input.VariableInputTypeAdapter",
 	    #output_adapter="chatterbot.output.OutputAdapter",
-	    output_format="text",
+	    #output_format="text",
 	    #database=  './database.json',#'chatterbot-database',
-	    database_uri= os.environ['MONGODB_URI']
+	    database_uri= 'mongodb://heroku_b9glb176:e11uqg3dkr44rrenaj1th5u4o4@ds137040.mlab.com:37040/heroku_b9glb176'
 	)
 	print "initiation complete"
 
