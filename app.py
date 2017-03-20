@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-import bot
+#import bot
 print "done bot import"
 
 import os
