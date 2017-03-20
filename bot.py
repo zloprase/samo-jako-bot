@@ -91,15 +91,11 @@ bot.train([
 	'Do pobede!',
 	'Odoh',
 	u'Љуби чика идите вечерас проведите се, радујте се бољим данима, нек је весеље !'
-
-
-
-
-
-
 ])
 
 print "training complete"
+
+import app
 
 #print "Start typing"
 # while True:
