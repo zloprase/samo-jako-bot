@@ -95,7 +95,7 @@ def log_wrapper(message):  # simple wrapper for logging to stdout on heroku
 #         _run_on_start("%s" % dom)
 #         app.run(debug=True, use_reloader=False)
 
-print "almost into main"
+print "almost into main - name is " + __name__ 
 if __name__ == '__main__':
     print "going into main"
     app.run(debug=True)
