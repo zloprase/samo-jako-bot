@@ -56,7 +56,7 @@ qa_dict = {
     'brinem': answers['sikiracija'],
     'sikiram': answers['sikiracija'],
     'sekiram': answers['sikiracija'],
-    'mislim': answers['sikiraija'],
+    'mislim': answers['sikiracija'],
     'srce': answers['cika'],
     'cao': answers['cika'],
     'ćao': answers['cika'],
@@ -68,7 +68,7 @@ qa_dict = {
     'udri': answers['jako'],
     'rokaj': answers['jako'],
     'kako': answers['jako'],
-    'mislim': answers['sikiraija'],
+    'mislim': answers['sikiracija'],
     'pobeda': answers['jako'],
     'jako': answers['jako'],
     '#samojako': answers['#avebeli'],
@@ -188,9 +188,6 @@ def log_wrapper(message):  # simple wrapper for logging to stdout on heroku
     print str(message)
     sys.stdout.flush()
 
-# def run_server(dom):
-#         _run_on_start("%s" % dom)
-#         app.run(debug=True, use_reloader=False)
 
 print "before main"
 print "almost into main - name is " + __name__ + " - condition is " + str(__name__ == '__main__')
@@ -198,9 +195,3 @@ if __name__ == '__main__':
     print "going into main"
     app.run(debug=True)
 
-# if __name__ == '__main__':
-#     if len(sys.argv) < 2:
-#         raise Exception("Must provide domain for application execution.")
-#     else:
-#         DOM = sys.argv[1]
-#         run_server(DOM)
