@@ -2,7 +2,7 @@
 
 #import bot
 #print "done bot import"
-from bot import get_bot
+#from bot import get_bot
 #from chatterbot import ChatBot
 
 import os
@@ -18,8 +18,99 @@ app = Flask(__name__)
 
 print "assigned flask to app"
 
-print "getting bot"
-bot = get_bot()
+initial_greeting = u'Ljubi čika! Samo šalji kratke poruke i bez sikiracije.'
+greeting_messages = [
+        'gde si',
+        'sta ima',
+        u'šta ima',
+        'pozdrav',
+    ]
+greeting_answers = [
+    initial_greeting
+]
+general_answers = [
+    u'Ljubi čika!',
+    'Samo bez sikiracije',
+    'Ave Beli!',
+    '#samojako',
+    '#avebeli',
+    'Samo Jako !',
+]
+
+answers = {
+    'pare': u'Sve pare će da budu kod čike',
+    'cika': u'Ljubi čika!',
+    'ave': 'Ave Beli !',
+    'ave 5': 'Ave Beli ! 5 !',
+    '#samojako': '#samojako',
+    'jako': 'Samo Jako !',
+    'sikiracija': 'Samo bez sikiracije',
+    '#avebeli': '#avebeli'
+}
+
+qa_dict = {
+    'pare': answers['pare'],
+    'kes': answers['pare'],
+    'keš': answers['pare'],
+    'lova': answers['pare'],
+    'brinem': answers['sikiracija'],
+    'sikiram': answers['sikiracija'],
+    'sekiram': answers['sikiracija'],
+    'mislim': answers['sikiraija'],
+    'srce': answers['cika'],
+    'cao': answers['cika'],
+    'ćao': answers['cika'],
+    'aj': answers['cika'],
+    'vidimo se': answers['cika'],
+    'pozdrav': answers['cika'],
+    'ziveo': answers['ave'],
+    'izbori': answers['ave 5'],
+    'udri': answers['jako'],
+    'rokaj': answers['jako'],
+    'kako': answers['jako'],
+    'mislim': answers['sikiraija'],
+    'pobeda': answers['jako'],
+    'jako': answers['jako'],
+    '#samojako': answers['#avebeli'],
+    '#avebeli': answers['#samojako'],
+}
+
+
+import distance
+import random
+
+def answer(message):
+    count = 0
+
+    smallest_distance = 999
+    current_distance = smallest_distance
+    closest_key = ""
+    closest_word = ""
+
+    for word in message.split():
+        count += 1
+        for key in qa_dict.keys():
+            current_distance = distance.levenshtein(key, word)
+            if current_distance < smallest_distance:
+                closest_key = key
+                closest_word = word
+                smallest_distance = current_distance
+        if count > 10 or smallest_distance < 2:
+            print "no words in first 11 match - going random"
+            closest_key = random.choice(qa_dict.keys())
+            closest_word = ":( none found"
+            break
+
+    print "Nearest words are key '" + closest_key + \
+          "' and word '" + closest_word + \
+          "' with score " + str(smallest_distance) + "."
+
+    return qa_dict[closest_key]
+
+
+
+
+#bot = get_bot()
 #bot.get_response("Ave Beli!")
 
 @app.route('/', methods=['GET'])
@@ -51,9 +142,9 @@ def webhook():
 
                     sender_id = messaging_event["sender"]["id"]        # the facebook ID of the person sending you the message
                     recipient_id = messaging_event["recipient"]["id"]  # the recipient's ID, which should be your page's facebook ID
-                    message_text = "" if "text" not in messaging_event["message"] else messaging_event["message"]["text"] # the message's text
+                    message_text = "Samo jako !" if "text" not in messaging_event["message"] else messaging_event["message"]["text"] # the message's text
 
-                    bot_reply =  "meh"#bot.get_response(None)
+                    bot_reply =  answer("meh") #bot.get_response(None)
 
                     send_message(sender_id, bot_reply)
 
