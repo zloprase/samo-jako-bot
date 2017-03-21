@@ -51,7 +51,7 @@ answers = {
 qa_dict = {
     'pare': answers['pare'],
     'kes': answers['pare'],
-    'keš': answers['pare'],
+    u'keš': answers['pare'],
     'lova': answers['pare'],
     'brinem': answers['sikiracija'],
     'sikiram': answers['sikiracija'],
@@ -59,7 +59,7 @@ qa_dict = {
     'mislim': answers['sikiracija'],
     'srce': answers['cika'],
     'cao': answers['cika'],
-    'ćao': answers['cika'],
+    u'ćao': answers['cika'],
     'aj': answers['cika'],
     'vidimo se': answers['cika'],
     'pozdrav': answers['cika'],
@@ -146,7 +146,7 @@ def webhook():
 
                     bot_reply =  answer(message_text) #bot.get_response(None)
 
-                    send_message(sender_id, bot_reply)
+                    send_message(sender_id, bot_reply.encode('utf8'))
 
                 if messaging_event.get("delivery"):  # delivery confirmation
                     pass
