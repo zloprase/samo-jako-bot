@@ -142,9 +142,9 @@ def webhook():
 
                     sender_id = messaging_event["sender"]["id"]        # the facebook ID of the person sending you the message
                     recipient_id = messaging_event["recipient"]["id"]  # the recipient's ID, which should be your page's facebook ID
-                    message_text = "Samo jako !" if "text" not in messaging_event["message"] else messaging_event["message"]["text"] # the message's text
+                    message_text = "jako" if "text" not in messaging_event["message"] else messaging_event["message"]["text"] # the message's text
 
-                    bot_reply =  answer("meh") #bot.get_response(None)
+                    bot_reply =  answer(message_text) #bot.get_response(None)
 
                     send_message(sender_id, bot_reply)
 
@@ -189,8 +189,6 @@ def log_wrapper(message):  # simple wrapper for logging to stdout on heroku
     sys.stdout.flush()
 
 
-print "before main"
-print "almost into main - name is " + __name__ + " - condition is " + str(__name__ == '__main__')
 if __name__ == '__main__':
     print "going into main"
     app.run(debug=True)
