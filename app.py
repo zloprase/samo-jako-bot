@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+# -*- coding: cp1250 -*-
 
 #import bot
 #print "done bot import"
@@ -8,6 +8,8 @@
 import json
 import os
 import sys
+import traceback
+from nltk.tokenize import word_tokenize
 
 import requests
 from flask import Flask, request
@@ -19,8 +21,8 @@ app = Flask(__name__)
 print "assigned flask to app"
 
 answers = {
-    'pare': u'Sve pare Ä‡e da budu kod Äike',
-    'cika': u'Ljubi Äika!',
+    'pare': u'Sve pare æe da budu kod èike',
+    'cika': u'Ljubi èika!',
     'ave': 'Ave Beli !',
     '5': 'Ave Beli ! 5 !',
     '#samojako': '#samojako',
@@ -29,70 +31,70 @@ answers = {
     '#avebeli': '#avebeli',
     'belo': 'Tvoje belo nije dovoljno belo',
     'bez': 'Bez sikiranja',
-    'ima': u'Ima za Äiku, al ima i za druge.',
-    'rad': u'Radim od rane zore, veÄ‡ od 8.',
-    'kobre': u'voleo bih da me Äuvaju â€kobreâ€œ kad postanem predsednik.',
-    'stan': u'Predsednik Ä‡e Å¾iveti u vikendici u Mladenovcu',
-    'vila': u'Vilu na Dedinju pokloniÄ‡emo najboljim studentima.',
-    'cilj': u'Glavni cilj je da se domognemo predsedniÄke pozicije, a posle Ä‡emo da vidimo.',
-    'tajkun': u'LjubiÅ¡in tajkun je kum Petar PopoviÄ‡ Ajkula',
+    'ima': u'Ima za èiku, al ima i za druge.',
+    'rad': u'Radim od rane zore, veæ od 8.',
+    'kobre': u'voleo bih da me èuvaju „kobre“ kad postanem predsednik.',
+    'stan': u'Predsednik æe iveti u vikendici u Mladenovcu',
+    'vila': u'Vilu na Dedinju pokloniæemo najboljim studentima.',
+    'cilj': u'Glavni cilj je da se domognemo predsednièke pozicije, a posle æemo da vidimo.',
+    'tajkun': u'Ljubišin tajkun je kum Petar Popoviæ Ajkula',
     'sarma': u'Sarmu probo nisi.',
-    'mrak': u'Å ta se beli u mraku Srbije?',
+    'mrak': u'Šta se beli u mraku Srbije?',
     'glava': u'Samo jako uzdignute glave !',
-    'doktorat': u'Idem po doktorat u korporativnom industrijskom menadÅ¾mentu, jer to je buduÄ‡nost.',
-    'placenik': u'Idem na obuku za strane plaÄ‡enike, a dogovaramo i sastanak sa Trampom',
-    'sumadija': u'Tokom programa biÄ‡e obavljeni i vaÅ¾ni razgovori o potencijalnim ulaganjima naÅ¡e dijaspore u AP Å umadija',
-    'zena': u'Kad postanem preCednik, ni jedna Å¾ena ne sme biti izvreÄ‘ana.',
+    'doktorat': u'Idem po doktorat u korporativnom industrijskom menadmentu, jer to je buduænost.',
+    'placenik': u'Idem na obuku za strane plaæenike, a dogovaramo i sastanak sa Trampom',
+    'sumadija': u'Tokom programa biæe obavljeni i vani razgovori o potencijalnim ulaganjima naše dijaspore u AP Šumadija',
+    'zena': u'Kad postanem preCednik, ni jedna ena ne sme biti izvreğana.',
     'predskazan': u'Beli je predskazan ...',
-    'prevaren': u'Da li je bilo ko od vas 12,640 kad je potpisao bio prevaren i nije znao da podrÅ¾ava LjubiÅ¡u PreletaÄeviÄ‡a Belog?',
-    'rik': u'Å½ao mi je Å¡to ste zabrinuti i ne verujete RIK-u.',
-    'zemun': u'ZnaÄi uspeo sam da ispoÅ¡tujem Zemun. IspoÅ¡tujte i vi brata. ',
-    'sirotinja': u'Sirotinja uzvraÄ‡a udarac',
-    'mart': u'Å½ene moje sreÄ‡an osmi mart. Ljubi Äika Å¡iÅ¡arkice',
-    'bot': u'Evo ponude: moji botovi poÄetnici imaju jagnjetinu. MoguÄ‡e napredovanje.',
+    'prevaren': u'Da li je bilo ko od vas 12,640 kad je potpisao bio prevaren i nije znao da podrava Ljubišu Preletaèeviæa Belog?',
+    'rik': u'ao mi je što ste zabrinuti i ne verujete RIK-u.',
+    'zemun': u'Znaèi uspeo sam da ispoštujem Zemun. Ispoštujte i vi brata. ',
+    'sirotinja': u'Sirotinja uzvraæa udarac',
+    'mart': u'ene moje sreæan osmi mart. Ljubi èika šišarkice',
+    'bot': u'Evo ponude: moji botovi poèetnici imaju jagnjetinu. Moguæe napredovanje.',
     'paypal': u'PayPal account je  belisamojako@gmail.com  ',
-    'saj': u'DoÅ¡li i SAJevci da pomognu skupljanje potpisa po Mladenovcu',
-    'formula': u'Moja formula je jednostavna. ZnaÄi samo jako i bez sikiranja, biÄ‡e sve ok. ;)',
-    'godina': u'Da zavrÅ¡imo ovu godinu pa da krenemo Samo Jako u narednu !',
-    'interes': u'Ja gledam da imam svoj liÄni interes, ali da dam i narodu. SuÅ¡tina je da Ä‡u krasti, da Ä‡u se vajditi, ali i da Ä‡u dati narodu. Tako treba raditi i tako smo namireni i mi i oni',
-    'soros': u'Ko da viÅ¡e love, taj je dobrodoÅ¡ao. Nebitno je ko finansira. Ko je spreman da uloÅ¾i novac u neÅ¡to Å¡to je dobro, taj je dobrodoÅ¡ao.',
-    'glasanje': u'Treba da izaÄ‘ete na izbore, jako je bitno. Dosta ste sedeli kuÄ‡i, niÅ¡ta niste radili. SuÅ¡tina je da sada uradite neÅ¡to novo i bitno, izaÄ‘ite 2. aprila na izbore i zaokruÅ¾ite broj pet â€“ ; LjubiÅ¡a PreletaÄeviÄ‡ Beli. Ljubi Äika, bez sikiranje',
-    'kosovo': u'Izvolite, moÅ¾ete da se vratite, ne samo vi, veÄ‡ i Bugarska, GrÄkaâ€¦ Od MaÄ‘arske do GrÄke da se svi ujedinimo',
-    'mmf': u'Ne znam ko to drÅ¾i. Lepo â€˜outâ€™, izlaziÅ¡ iz zemlje, a sva lova kod â€˜Äikeâ€™. Narod zna da je lova kod mene, treba ti neÅ¡to, doÄ‘eÅ¡ kod mene, pitaÅ¡ treba mi za to i to, ja iskeÅ¡iram sve iz dÅ¾epa, odem provjerim da li si to uradio i lijepo',
-    'ljubi': u'Ljubi Äika, bez sikiranja',
-    'loto': u'Loto je Äika Beli namestio. Dosta su drugi nameÅ¡tali loto, sad malo Äika. Da usreÄ‡im kojeg MladenovÄanina, biÄ‡e toga joÅ¡. Ljubi predsednik.',
-    'istokzapad': u'Radim za zapad i za istok. U zavisnosti kuda viÅ¡e love, ja za njih radim, tako da je kod mene sve to promenljivo.',
-    'kontrola': u'Nema tu kontrole, znaÄi, mojih botova ima mnogo viÅ¡e od ostalih stranaka i tu nema neke preterane kontrole, podelimo im te kapriÄ‡oze i oni se malo smire, ali opet krenu, mnogo su jaki, ko god krene na mene, oni me brane.',
-    'krug': u'Sad idemo u krug, sad malo ja deset godina, pa Ä‡e neko drugi. Nema tu neke filozofije, razumeÅ¡.',
-    'iskreno': u'Pa znaÅ¡ Å¡ta je fora, Å¡to bih ja ujedinio sve ljude. Svi da se volimo, da se grlimo, da nam bude svima lepo, da ne postoje granice, da nema NATO-a, i to je ono iskreno.',
-    'drugi': u'Nema niÅ¡ta od toga, prvi krug ja dobijam i to je to.',
-    'dama': u' Postoji prva dama. Mislim ona nije joÅ¡ prva dama, ja kada postanem prvi predsednik, onda Ä‡u je uzeti za Å¾enu.',
-    'zelenas': u'Nema tu kancelarije, ti doÄ‘eÅ¡ kod mene liÄno, traÅ¾iÅ¡ od mene pare. ZnaÄi nema ti da traÅ¾iÅ¡ ni od koga drugog, pare Ä‡e da budu kod mene kuÄ‡i, ti doÄ‘eÅ¡ kod mene pa traÅ¾iÅ¡ pare. Sad, ti si seljak Äovek hoÄ‡eÅ¡ da posejeÅ¡ njivu neku tamo, kupiÅ¡ kombajn, doÄ‘eÅ¡ kod mene i traÅ¾iÅ¡, ja odem posle i proverim jesi li kupio i to je to. To je prosto.',
-    'jezik': u'Dakle engleski, nemaÄki, francuski.',
-    'veselje': u'NapraviÄ‡u opÅ¡te narodno veselje. NapraviÄ‡emo 20 mangala za 20 bravova i opÅ¡te narodno veselje da proslavimo predsednikovu pobedu, onako narodski Å¡to se kaÅ¾e.',
-    'nikolic': u'Pa verovatno bolje igram od Nikolica, imam smisla za igranku, Å¾ene kaÅ¾u da sam zgodan, tako da, za poÄetak, i tri strana jezika, a spreman sam da nauÄim joÅ¡ dva, mislim da je to za poÄetak dovoljno.',
-    'kruna': u'Verovatno Ä‡u imati prilike da upoznam predsednika kad bude predaja kruna.',
-    'tempo': u'Evo ja ti prijatelju radim od 7 jutros, pa ti vidi sad koliko je to, znaÄi mogu da izguram 22 sata da radim.',
-    'arapi': u'Kad postanem predsednik neÄ‡u da radim niÅ¡ta, Å¡ta ima da radim, da potpisujem tamo, da igram sa Arapima, da peÄem rakiju, da se Å¡etam ambasadama. Sad da izguram ovo po 22 sata da radim i posle milina BoÅ¾ija.',
-    'istina': u'Kako neÄ‡e, ljudima treba istina, niko nije bio iskren 20-30 godina, ja izaÄ‘em i kaÅ¾em, kao Å¡to sam tebi rekao malopre, moj liÄni interes je na prvom mestu, pa onda drugi, ali ja Ä‡u davati i njima.',
-    'srdja': u'Ja sam iÅ¡ao na privatne Äasove kod SrÄ‘e, 1000 dinara po Äasu je bilo i uz to mi je matematiku predavao, jedan od koeficijenata je 2, to ti je dovoljno da budeÅ¡ predsednik drÅ¾ave. Tako da to je sve po tom principtu.',
-    'kabinet': u'VidiÅ¡ da ja Å¡irim ljubav, nema haosa. Ja ne Å¾elim ljude na ulici, Å¾elim sebe u predsedniÄkom kabinetu.',
-    'lgbt': u'To je ono Å¡to ti kaÅ¾em, znaÄi ako je potrebno i to da se uradi samo da ja postanem predsednik, nije nikakav problem. Å to se mene tiÄe mogu goli ljudi da Å¡etaju ulicama, ako Ä‡u ja da budem presednik drÅ¾ave. Samo za taj liÄni interes, Å¡ta god, treba da se uradi. Samo da se doÄ‘e do cilja.',
-    'ujedini': u'Pa ja bih potpisao da se ujedinimo svi komplet od MaÄ‘arske dole do GrÄke. Sve ako moÅ¾e da se to ujedini u jednu zemlju, bez razmiÅ¡ljanja. Niko da se ne otcepljuje.',
-    'golf': u'Golf â€dvicaâ€œ, 1.6 td, 86. godiÅ¡te, znaÄi jednom mi je nestalo goriva dole na primorju sipao sam karton zejtina, je li verujeÅ¡ da je dogurao do Beograda?',
-    'referendum': u'Ko viÅ¡e nudi love, prijatelju, tamo treba da idemo. Sad da li to bila Evropska unija ili unija Azije i Severne Koreje, to je nebitno. Ja to kaÅ¾em, da ne bude da je moje miÅ¡ljenje, referendum pa nek narod odluÄi. PoÅ¡teno.',
-    'jeremic': u'Divan momak, stvarno legendica, divan deÄak, radi svoj posao kako treba.',
-    'jankovic': u'Fin momak i SaÅ¡a je stvarno fin deÄak. On je bio beÅ¡e zaÅ¡titnik graÄ‘ana, to nije loÅ¡a funkcija.',
-    'radulovic': u'OduÅ¡evio me Äovek Å¡to je pozivao da ljudi potpiÅ¡u za nas, hvala mu za to.',
-    'bosko': u'BoÅ¡ko je momak i po. Ne pratim neÅ¡to njegove politiÄke aktivnosti, ali ovako je stvarno fin Äovek.',
-    'gandalf': u'Gandalf Beli. Rekao je TarabiÄ‡ da Ä‡e da doÄ‘e Äovek na belom konju, ne znam da li je rekao u belom odelu. Ali belo kao Äisto neÅ¡to je prepoznatljivo.',
-    'preletacevic': u'Nijedan se ne preziva PreletaÄeviÄ‡ osim mene. Ja opet u svom prezimenu imam iskrenost, razumeÅ¡, ja kaÅ¾em da sam PreletaÄeviÄ‡. To je suÅ¡tina.',
+    'saj': u'Došli i SAJevci da pomognu skupljanje potpisa po Mladenovcu',
+    'formula': u'Moja formula je jednostavna. Znaèi samo jako i bez sikiranja, biæe sve ok. ;)',
+    'godina': u'Da završimo ovu godinu pa da krenemo Samo Jako u narednu !',
+    'interes': u'Ja gledam da imam svoj lièni interes, ali da dam i narodu. Suština je da æu krasti, da æu se vajditi, ali i da æu dati narodu. Tako treba raditi i tako smo namireni i mi i oni',
+    'soros': u'Ko da više love, taj je dobrodošao. Nebitno je ko finansira. Ko je spreman da uloi novac u nešto što je dobro, taj je dobrodošao.',
+    'glasanje': u'Treba da izağete na izbore, jako je bitno. Dosta ste sedeli kuæi, ništa niste radili. Suština je da sada uradite nešto novo i bitno, izağite 2. aprila na izbore i zaokruite broj pet – ; Ljubiša Preletaèeviæ Beli. Ljubi èika, bez sikiranje',
+    'kosovo': u'Izvolite, moete da se vratite, ne samo vi, veæ i Bugarska, Grèka… Od Mağarske do Grèke da se svi ujedinimo',
+    'mmf': u'Ne znam ko to dri. Lepo ‘out’, izlaziš iz zemlje, a sva lova kod ‘èike’. Narod zna da je lova kod mene, treba ti nešto, doğeš kod mene, pitaš treba mi za to i to, ja iskeširam sve iz depa, odem provjerim da li si to uradio i lijepo',
+    'ljubi': u'Ljubi èika, bez sikiranja',
+    'loto': u'Loto je èika Beli namestio. Dosta su drugi nameštali loto, sad malo èika. Da usreæim kojeg Mladenovèanina, biæe toga još. Ljubi predsednik.',
+    'istokzapad': u'Radim za zapad i za istok. U zavisnosti kuda više love, ja za njih radim, tako da je kod mene sve to promenljivo.',
+    'kontrola': u'Nema tu kontrole, znaèi, mojih botova ima mnogo više od ostalih stranaka i tu nema neke preterane kontrole, podelimo im te kapriæoze i oni se malo smire, ali opet krenu, mnogo su jaki, ko god krene na mene, oni me brane.',
+    'krug': u'Sad idemo u krug, sad malo ja deset godina, pa æe neko drugi. Nema tu neke filozofije, razumeš.',
+    'iskreno': u'Pa znaš šta je fora, što bih ja ujedinio sve ljude. Svi da se volimo, da se grlimo, da nam bude svima lepo, da ne postoje granice, da nema NATO-a, i to je ono iskreno.',
+    'drugi': u'Nema ništa od toga, prvi krug ja dobijam i to je to.',
+    'dama': u' Postoji prva dama. Mislim ona nije još prva dama, ja kada postanem prvi predsednik, onda æu je uzeti za enu.',
+    'zelenas': u'Nema tu kancelarije, ti doğeš kod mene lièno, traiš od mene pare. Znaèi nema ti da traiš ni od koga drugog, pare æe da budu kod mene kuæi, ti doğeš kod mene pa traiš pare. Sad, ti si seljak èovek hoæeš da poseješ njivu neku tamo, kupiš kombajn, doğeš kod mene i traiš, ja odem posle i proverim jesi li kupio i to je to. To je prosto.',
+    'jezik': u'Dakle engleski, nemaèki, francuski.',
+    'veselje': u'Napraviæu opšte narodno veselje. Napraviæemo 20 mangala za 20 bravova i opšte narodno veselje da proslavimo predsednikovu pobedu, onako narodski što se kae.',
+    'nikolic': u'Pa verovatno bolje igram od Nikolica, imam smisla za igranku, ene kau da sam zgodan, tako da, za poèetak, i tri strana jezika, a spreman sam da nauèim još dva, mislim da je to za poèetak dovoljno.',
+    'kruna': u'Verovatno æu imati prilike da upoznam predsednika kad bude predaja kruna.',
+    'tempo': u'Evo ja ti prijatelju radim od 7 jutros, pa ti vidi sad koliko je to, znaèi mogu da izguram 22 sata da radim.',
+    'arapi': u'Kad postanem predsednik neæu da radim ništa, šta ima da radim, da potpisujem tamo, da igram sa Arapima, da peèem rakiju, da se šetam ambasadama. Sad da izguram ovo po 22 sata da radim i posle milina Boija.',
+    'istina': u'Kako neæe, ljudima treba istina, niko nije bio iskren 20-30 godina, ja izağem i kaem, kao što sam tebi rekao malopre, moj lièni interes je na prvom mestu, pa onda drugi, ali ja æu davati i njima.',
+    'srdja': u'Ja sam išao na privatne èasove kod Srğe, 1000 dinara po èasu je bilo i uz to mi je matematiku predavao, jedan od koeficijenata je 2, to ti je dovoljno da budeš predsednik drave. Tako da to je sve po tom principtu.',
+    'kabinet': u'Vidiš da ja širim ljubav, nema haosa. Ja ne elim ljude na ulici, elim sebe u predsednièkom kabinetu.',
+    'lgbt': u'To je ono što ti kaem, znaèi ako je potrebno i to da se uradi samo da ja postanem predsednik, nije nikakav problem. Što se mene tièe mogu goli ljudi da šetaju ulicama, ako æu ja da budem presednik drave. Samo za taj lièni interes, šta god, treba da se uradi. Samo da se doğe do cilja.',
+    'ujedini': u'Pa ja bih potpisao da se ujedinimo svi komplet od Mağarske dole do Grèke. Sve ako moe da se to ujedini u jednu zemlju, bez razmišljanja. Niko da se ne otcepljuje.',
+    'golf': u'Golf „dvica“, 1.6 td, 86. godište, znaèi jednom mi je nestalo goriva dole na primorju sipao sam karton zejtina, je li veruješ da je dogurao do Beograda?',
+    'referendum': u'Ko više nudi love, prijatelju, tamo treba da idemo. Sad da li to bila Evropska unija ili unija Azije i Severne Koreje, to je nebitno. Ja to kaem, da ne bude da je moje mišljenje, referendum pa nek narod odluèi. Pošteno.',
+    'jeremic': u'Divan momak, stvarno legendica, divan deèak, radi svoj posao kako treba.',
+    'jankovic': u'Fin momak i Saša je stvarno fin deèak. On je bio beše zaštitnik grağana, to nije loša funkcija.',
+    'radulovic': u'Oduševio me èovek što je pozivao da ljudi potpišu za nas, hvala mu za to.',
+    'bosko': u'Boško je momak i po. Ne pratim nešto njegove politièke aktivnosti, ali ovako je stvarno fin èovek.',
+    'gandalf': u'Gandalf Beli. Rekao je Tarabiæ da æe da doğe èovek na belom konju, ne znam da li je rekao u belom odelu. Ali belo kao èisto nešto je prepoznatljivo.',
+    'preletacevic': u'Nijedan se ne preziva Preletaèeviæ osim mene. Ja opet u svom prezimenu imam iskrenost, razumeš, ja kaem da sam Preletaèeviæ. To je suština.',
 }
 
 qa_dict = {
     'pare': answers['pare'],
     'kes': answers['pare'],
-    'keÅ¡': answers['pare'],
+    'keš': answers['pare'],
     'lova': answers['pare'],
     'brinem': answers['sikiracija'],
     'sikiram': answers['sikiracija'],
@@ -100,7 +102,7 @@ qa_dict = {
     'mislim': answers['sikiracija'],
     'srce': answers['ljubi'],
     'cao': answers['ljubi'],
-    'Ä‡ao': answers['cika'],
+    'æao': answers['cika'],
     'aj': answers['cika'],
     'vidimo se': answers['cika'],
     'pozdrav': answers['ljubi'],
@@ -187,7 +189,7 @@ qa_dict = {
     'lutrija': answers['loto'],
     'istok': answers['istokzapad'],
     'zapad': answers['istokzapad'],
-    'radiÅ¡': answers['rad'],
+    'radiš': answers['rad'],
     'jutro': answers['rad'],
     'komunist': answers['istokzapad'],
     'stranci': answers['istokzapad'],
@@ -203,12 +205,12 @@ qa_dict = {
     'alijansa': answers['iskreno'],
     'drugi': answers['drugi'],
     'dama': answers['dama'],
-    'Å¾enidba': answers['dama'],
+    'enidba': answers['dama'],
     'zenidba': answers['dama'],
     'zene': answers['dama'],
     'devojku': answers['dama'],
     'ozeni': answers['dama'],
-    'Å¾eniÅ¡': answers['dama'],
+    'eniš': answers['dama'],
     'zenis': answers['dama'],
     'zelenas': answers['zelenas'],
     'njivu': answers['zelenas'],
@@ -222,7 +224,7 @@ qa_dict = {
     'slavlje': answers['veselje'],
     'proslava': answers['veselje'],
     'nikolic': answers['nikolic'],
-    'nikoliÄ‡': answers['nikolic'],
+    'nikoliæ': answers['nikolic'],
     'kruna': answers['kruna'],
     'predsednik': answers['kruna'],
     'tempo': answers['tempo'],
@@ -234,10 +236,10 @@ qa_dict = {
     'ambasada': answers['arapi'],
     'istina': answers['istina'],
     'srdja': answers['srdja'],
-    'srÄ‘a': answers['srdja'],
+    'srğa': answers['srdja'],
     'casovi': answers['srdja'],
-    'Äasovi': answers['srdja'],
-    'uÄi': answers['srdja'],
+    'èasovi': answers['srdja'],
+    'uèi': answers['srdja'],
     'haos': answers['kabinet'],
     'ulici': answers['kabinet'],
     'ljubav': answers['kabinet'],
@@ -252,7 +254,7 @@ qa_dict = {
     'aktivisti': answers['bot'],
     'referendum': answers['referendum'],
     'glasanje': answers['referendum'],
-    'odluÄi': answers['referendum'],
+    'odluèi': answers['referendum'],
     'odluci': answers['referendum'],
     'unija': answers['referendum'],
     'jeremic': answers['jeremic'],
@@ -262,53 +264,52 @@ qa_dict = {
     'bosko': answers['bosko'],
     'obradovic': answers['bosko'],
     'gandalf': answers['gandalf'],
-    'tarabiÄ‡': answers['gandalf'],
+    'tarabiæ': answers['gandalf'],
     'preletacevic': answers['preletacevic'],
-    'preletaÄeviÄ‡': answers['preletacevic']
+    'preletaèeviæ': answers['preletacevic']
 }
 
 
 import distance
-import random
-
 def answer(message):
+    message = message.lower()
     try:
         count = 0
-
         smallest_distance = 999
-        current_distance = smallest_distance
         closest_key = ""
         closest_word = ""
 
-        for word in message.split():
-            word = word.decode('utf8')
+        for word in word_tokenize(message):
             count += 1
+            if len(word) < 3 or word == 'beli':
+                continue
+
             for key in qa_dict.keys():
+                print key + ":" + word
                 current_distance = distance.levenshtein(key, word)
+                #print "distance: " + str(current_distance)
                 if current_distance < smallest_distance:
                     closest_key = key
                     closest_word = word
                     smallest_distance = current_distance
             if count > 10:
-                print "no words in first 11 match - going random"
-                closest_key = random.choice(qa_dict.keys())
-                closest_word = ":( none found"
+                #print 1
+                #log_wrapper("no words in first 11 match - going for the best one")
                 break
             if smallest_distance < 2:
+                #print 2
+                #log_wrapper("found the best one after " + str(count) + " tries." )
                 break
 
-        print "Nearest words are key '" + closest_key.decode('utf8') + \
-              "' and word '" + closest_word.decode('utf8') + \
-              "' with score " + str(smallest_distance) + "."
+        log_wrapper("Nearest words are key '" + closest_key + \
+              "' and word '" + closest_word + \
+              "' with score " + str(smallest_distance) + ".")
 
         return qa_dict[closest_key]
     except:
-        return "Opa"
+        log_wrapper(traceback.print_exc())
+        return "#samojakobot"
 
-
-
-#bot = get_bot()
-#bot.get_response("Ave Beli!")
 
 @app.route('/', methods=['GET'])
 def verify():
@@ -389,6 +390,6 @@ def log_wrapper(message):  # simple wrapper for logging to stdout on heroku
 
 
 if __name__ == '__main__':
-    print "going into main"
+    print "Going into main"
     app.run(debug=False)
 
