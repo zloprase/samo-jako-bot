@@ -281,6 +281,7 @@ def answer(message):
         closest_word = ""
 
         for word in message.split():
+            word = word.decode('utf8')
             count += 1
             for key in qa_dict.keys():
                 current_distance = distance.levenshtein(key, word)
@@ -296,8 +297,8 @@ def answer(message):
             if smallest_distance < 2:
                 break
 
-        print "Nearest words are key '" + closest_key.encode('utf8') + \
-              "' and word '" + closest_word.encode('utf8') + \
+        print "Nearest words are key '" + closest_key.decode('utf8') + \
+              "' and word '" + closest_word.decode('utf8') + \
               "' with score " + str(smallest_distance) + "."
 
         return qa_dict[closest_key]
@@ -340,9 +341,9 @@ def webhook():
                         recipient_id = messaging_event["recipient"]["id"]  # the recipient's ID, which should be your page's facebook ID
                         message_text = "jako" if "text" not in messaging_event["message"] else messaging_event["message"]["text"] # the message's text
 
-                        bot_reply =  answer(message_text.encode('utf8'))
+                        bot_reply =  answer(message_text)
 
-                        send_message(sender_id, bot_reply.encode('utf8'))
+                        send_message(sender_id, bot_reply)
                     except:
                         log_wrapper("Could not answer due to error")
 
