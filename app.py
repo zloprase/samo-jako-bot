@@ -41,11 +41,14 @@ answers = {
     'pare': u'Sve pare će da budu kod čike',
     'cika': u'Ljubi čika!',
     'ave': 'Ave Beli !',
-    'ave 5': 'Ave Beli ! 5 !',
+    '5': 'Ave Beli ! 5 !',
     '#samojako': '#samojako',
     'jako': 'Samo Jako !',
     'sikiracija': 'Samo bez sikiracije',
-    '#avebeli': '#avebeli'
+    '#avebeli': '#avebeli',
+    'belo': 'Tvoje belo nije dovoljno belo',
+    'bez': 'Bez sikiranja',
+    'ima': 'Ima za čiku, al ima i za druge.'
 }
 
 qa_dict = {
@@ -73,6 +76,14 @@ qa_dict = {
     'jako': answers['jako'],
     '#samojako': answers['#avebeli'],
     '#avebeli': answers['#samojako'],
+    'belo': answers['belo'],
+    'odelo': answers['belo'],
+    'bez': answers['bez'],
+    '5': answers['5'],
+    'ave': answers['#avebeli'],
+    'sta': answers['ima'],
+    'ima': answers['ima'],
+    'aj': answers['jako']
 }
 
 
