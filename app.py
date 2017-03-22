@@ -18,25 +18,6 @@ app = Flask(__name__)
 
 print "assigned flask to app"
 
-initial_greeting = u'Ljubi čika! Samo šalji kratke poruke i bez sikiracije.'
-greeting_messages = [
-        'gde si',
-        'sta ima',
-        u'šta ima',
-        'pozdrav',
-    ]
-greeting_answers = [
-    initial_greeting
-]
-general_answers = [
-    u'Ljubi čika!',
-    'Samo bez sikiracije',
-    'Ave Beli!',
-    '#samojako',
-    '#avebeli',
-    'Samo Jako !',
-]
-
 answers = {
     'pare': u'Sve pare će da budu kod čike',
     'cika': u'Ljubi čika!',
@@ -206,7 +187,7 @@ qa_dict = {
     'lutrija': answers['loto'],
     'istok': answers['istokzapad'],
     'zapad': answers['istokzapad'],
-    'radiš': answers['rad'],
+    u'radiš': answers['rad'],
     'jutro': answers['rad'],
     'komunist': answers['istokzapad'],
     'stranci': answers['istokzapad'],
