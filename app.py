@@ -67,7 +67,7 @@ qa_dict = {
     'vidimo se': answers['cika'],
     'pozdrav': answers['cika'],
     'ziveo': answers['ave'],
-    'izbori': answers['ave 5'],
+    'izbori': answers['5'],
     'udri': answers['jako'],
     'rokaj': answers['jako'],
     'kako': answers['jako'],
