@@ -92,7 +92,7 @@ answers = {
 qa_dict = {
     'pare': answers['pare'],
     'kes': answers['pare'],
-    u'keš': answers['pare'],
+    'keš': answers['pare'],
     'lova': answers['pare'],
     'brinem': answers['sikiracija'],
     'sikiram': answers['sikiracija'],
@@ -100,7 +100,7 @@ qa_dict = {
     'mislim': answers['sikiracija'],
     'srce': answers['ljubi'],
     'cao': answers['ljubi'],
-    u'ćao': answers['cika'],
+    'ćao': answers['cika'],
     'aj': answers['cika'],
     'vidimo se': answers['cika'],
     'pozdrav': answers['ljubi'],
@@ -187,7 +187,7 @@ qa_dict = {
     'lutrija': answers['loto'],
     'istok': answers['istokzapad'],
     'zapad': answers['istokzapad'],
-    u'radiš': answers['rad'],
+    'radiš': answers['rad'],
     'jutro': answers['rad'],
     'komunist': answers['istokzapad'],
     'stranci': answers['istokzapad'],
@@ -203,12 +203,12 @@ qa_dict = {
     'alijansa': answers['iskreno'],
     'drugi': answers['drugi'],
     'dama': answers['dama'],
-    u'ženidba': answers['dama'],
+    'ženidba': answers['dama'],
     'zenidba': answers['dama'],
     'zene': answers['dama'],
     'devojku': answers['dama'],
     'ozeni': answers['dama'],
-    u'ženiš': answers['dama'],
+    'ženiš': answers['dama'],
     'zenis': answers['dama'],
     'zelenas': answers['zelenas'],
     'njivu': answers['zelenas'],
@@ -222,7 +222,7 @@ qa_dict = {
     'slavlje': answers['veselje'],
     'proslava': answers['veselje'],
     'nikolic': answers['nikolic'],
-    u'nikolić': answers['nikolic'],
+    'nikolić': answers['nikolic'],
     'kruna': answers['kruna'],
     'predsednik': answers['kruna'],
     'tempo': answers['tempo'],
@@ -234,10 +234,10 @@ qa_dict = {
     'ambasada': answers['arapi'],
     'istina': answers['istina'],
     'srdja': answers['srdja'],
-    u'srđa': answers['srdja'],
+    'srđa': answers['srdja'],
     'casovi': answers['srdja'],
-    u'časovi': answers['srdja'],
-    u'uči': answers['srdja'],
+    'časovi': answers['srdja'],
+    'uči': answers['srdja'],
     'haos': answers['kabinet'],
     'ulici': answers['kabinet'],
     'ljubav': answers['kabinet'],
@@ -252,7 +252,7 @@ qa_dict = {
     'aktivisti': answers['bot'],
     'referendum': answers['referendum'],
     'glasanje': answers['referendum'],
-    u'odluči': answers['referendum'],
+    'odluči': answers['referendum'],
     'odluci': answers['referendum'],
     'unija': answers['referendum'],
     'jeremic': answers['jeremic'],
@@ -340,11 +340,11 @@ def webhook():
                         recipient_id = messaging_event["recipient"]["id"]  # the recipient's ID, which should be your page's facebook ID
                         message_text = "jako" if "text" not in messaging_event["message"] else messaging_event["message"]["text"] # the message's text
 
-                        bot_reply =  answer(message_text) #bot.get_response(None)
+                        bot_reply =  answer(message_text.encode('utf8'))
 
                         send_message(sender_id, bot_reply.encode('utf8'))
                     except:
-                        print "Could not answer due to error"
+                        log_wrapper("Could not answer due to error")
 
                 if messaging_event.get("delivery"):  # delivery confirmation
                     pass
@@ -389,5 +389,5 @@ def log_wrapper(message):  # simple wrapper for logging to stdout on heroku
 
 if __name__ == '__main__':
     print "going into main"
-    app.run(debug=True)
+    app.run(debug=False)
 
