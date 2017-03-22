@@ -95,10 +95,12 @@ def answer(message):
                 closest_key = key
                 closest_word = word
                 smallest_distance = current_distance
-        if count > 10 or smallest_distance < 2:
+        if count > 10:
             print "no words in first 11 match - going random"
             closest_key = random.choice(qa_dict.keys())
             closest_word = ":( none found"
+            break
+        if smallest_distance < 2:
             break
 
     print "Nearest words are key '" + closest_key + \
