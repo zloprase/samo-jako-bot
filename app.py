@@ -48,7 +48,7 @@ answers = {
     '#avebeli': '#avebeli',
     'belo': 'Tvoje belo nije dovoljno belo',
     'bez': 'Bez sikiranja',
-    'ima': 'Ima za čiku, al ima i za druge.'
+    'ima': u'Ima za čiku, al ima i za druge.'
 }
 
 qa_dict = {
