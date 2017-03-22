@@ -80,6 +80,7 @@ qa_dict = {
     'odelo': answers['belo'],
     'bez': answers['bez'],
     '5': answers['5'],
+    'pobeda': answers['5'],
     'ave': answers['#avebeli'],
     'sta': answers['ima'],
     'ima': answers['ima'],
