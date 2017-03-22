@@ -5,9 +5,9 @@
 #from bot import get_bot
 #from chatterbot import ChatBot
 
+import json
 import os
 import sys
-import json
 
 import requests
 from flask import Flask, request
