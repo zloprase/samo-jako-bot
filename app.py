@@ -94,7 +94,7 @@ answers = {
 qa_dict = {
     'pare': answers['pare'],
     'kes': answers['pare'],
-    'keš': answers['pare'],
+    u'keš': answers['pare'],
     'lova': answers['pare'],
     'brinem': answers['sikiracija'],
     'sikiram': answers['sikiracija'],
@@ -102,8 +102,8 @@ qa_dict = {
     'mislim': answers['sikiracija'],
     'srce': answers['ljubi'],
     'cao': answers['ljubi'],
-    'æao': answers['cika'],
-    'aj': answers['cika'],
+    u'æao': answers['cika'],
+    'ajd': answers['cika'],
     'vidimo se': answers['cika'],
     'pozdrav': answers['ljubi'],
     'ziveo': answers['ave'],
@@ -118,7 +118,7 @@ qa_dict = {
     'belo': answers['belo'],
     'odelo': answers['belo'],
     'bez': answers['bez'],
-    '5': answers['5'],
+    'pet': answers['5'],
     '5eli': answers['5'],
     'ave': answers['#avebeli'],
     'ima': answers['ima'],
@@ -189,7 +189,7 @@ qa_dict = {
     'lutrija': answers['loto'],
     'istok': answers['istokzapad'],
     'zapad': answers['istokzapad'],
-    'radiš': answers['rad'],
+    u'radiš': answers['rad'],
     'jutro': answers['rad'],
     'komunist': answers['istokzapad'],
     'stranci': answers['istokzapad'],
@@ -205,12 +205,12 @@ qa_dict = {
     'alijansa': answers['iskreno'],
     'drugi': answers['drugi'],
     'dama': answers['dama'],
-    'ženidba': answers['dama'],
+    u'ženidba': answers['dama'],
     'zenidba': answers['dama'],
     'zene': answers['dama'],
     'devojku': answers['dama'],
     'ozeni': answers['dama'],
-    'ženiš': answers['dama'],
+    u'ženiš': answers['dama'],
     'zenis': answers['dama'],
     'zelenas': answers['zelenas'],
     'njivu': answers['zelenas'],
@@ -224,7 +224,7 @@ qa_dict = {
     'slavlje': answers['veselje'],
     'proslava': answers['veselje'],
     'nikolic': answers['nikolic'],
-    'nikoliæ': answers['nikolic'],
+    u'nikoliæ': answers['nikolic'],
     'kruna': answers['kruna'],
     'predsednik': answers['kruna'],
     'tempo': answers['tempo'],
@@ -236,10 +236,10 @@ qa_dict = {
     'ambasada': answers['arapi'],
     'istina': answers['istina'],
     'srdja': answers['srdja'],
-    'srða': answers['srdja'],
+    u'srða': answers['srdja'],
     'casovi': answers['srdja'],
-    'èasovi': answers['srdja'],
-    'uèi': answers['srdja'],
+    u'èasovi': answers['srdja'],
+    u'uèi': answers['srdja'],
     'haos': answers['kabinet'],
     'ulici': answers['kabinet'],
     'ljubav': answers['kabinet'],
@@ -254,7 +254,7 @@ qa_dict = {
     'aktivisti': answers['bot'],
     'referendum': answers['referendum'],
     'glasanje': answers['referendum'],
-    'odluèi': answers['referendum'],
+    u'odluèi': answers['referendum'],
     'odluci': answers['referendum'],
     'unija': answers['referendum'],
     'jeremic': answers['jeremic'],
@@ -264,9 +264,9 @@ qa_dict = {
     'bosko': answers['bosko'],
     'obradovic': answers['bosko'],
     'gandalf': answers['gandalf'],
-    'tarabiæ': answers['gandalf'],
+    u'tarabiæ': answers['gandalf'],
     'preletacevic': answers['preletacevic'],
-    'preletaèeviæ': answers['preletacevic']
+    u'preletaèeviæ': answers['preletacevic']
 }
 
 
@@ -285,7 +285,8 @@ def answer(message):
                 continue
 
             for key in qa_dict.keys():
-                print key.decode('utf8') + ":" + word.decode('utf8')
+                #print "key: " + key
+                #print "word: " + word
                 current_distance = distance.levenshtein(key, word)
                 #print "distance: " + str(current_distance)
                 if current_distance < smallest_distance:
