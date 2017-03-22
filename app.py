@@ -80,7 +80,6 @@ import distance
 import random
 
 def answer(message):
-    message = message.encode('utf8')
     count = 0
 
     smallest_distance = 999
@@ -104,8 +103,8 @@ def answer(message):
         if smallest_distance < 2:
             break
 
-    print "Nearest words are key '" + closest_key + \
-          "' and word '" + closest_word + \
+    print "Nearest words are key '" + closest_key.encode('utf8') + \
+          "' and word '" + closest_word.encode('utf8') + \
           "' with score " + str(smallest_distance) + "."
 
     return qa_dict[closest_key]
@@ -142,14 +141,16 @@ def webhook():
             for messaging_event in entry["messaging"]:
 
                 if messaging_event.get("message"):  # someone sent us a message
+                    try:
+                        sender_id = messaging_event["sender"]["id"]        # the facebook ID of the person sending you the message
+                        recipient_id = messaging_event["recipient"]["id"]  # the recipient's ID, which should be your page's facebook ID
+                        message_text = "jako" if "text" not in messaging_event["message"] else messaging_event["message"]["text"] # the message's text
 
-                    sender_id = messaging_event["sender"]["id"]        # the facebook ID of the person sending you the message
-                    recipient_id = messaging_event["recipient"]["id"]  # the recipient's ID, which should be your page's facebook ID
-                    message_text = "jako" if "text" not in messaging_event["message"] else messaging_event["message"]["text"] # the message's text
+                        bot_reply =  answer(message_text) #bot.get_response(None)
 
-                    bot_reply =  answer(message_text) #bot.get_response(None)
-
-                    send_message(sender_id, bot_reply.encode('utf8'))
+                        send_message(sender_id, bot_reply.encode('utf8'))
+                    except:
+                        print "Could not answer due to error"
 
                 if messaging_event.get("delivery"):  # delivery confirmation
                     pass
