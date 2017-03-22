@@ -80,6 +80,7 @@ import distance
 import random
 
 def answer(message):
+    message = message.encode('utf8')
     count = 0
 
     smallest_distance = 999
