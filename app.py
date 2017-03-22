@@ -285,7 +285,7 @@ def answer(message):
                 continue
 
             for key in qa_dict.keys():
-                print key + ":" + word
+                print key.decode('utf8') + ":" + word.decode('utf8')
                 current_distance = distance.levenshtein(key, word)
                 #print "distance: " + str(current_distance)
                 if current_distance < smallest_distance:
