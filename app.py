@@ -104,9 +104,9 @@ def webhook():
 
                         bot_reply =  answer(message_text)
 
-                        log_wrapper(bot_reply)
+                        log_wrapper(bot_reply.encode('utf-8'))
 
-                        send_message(sender_id, bot_reply.encode('utf8'))
+                        send_message(sender_id, bot_reply.encode('utf-8'))
                     except:
                         log_wrapper("Could not answer due to error")
                         log_wrapper(traceback.print_exc())
