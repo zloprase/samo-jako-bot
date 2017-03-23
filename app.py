@@ -61,9 +61,9 @@ def answer(message):
         if closest_key == "":
             closest_key = "belo"
 
-        print closest_key
-        print closest_word
-        print str(smallest_distance)
+        #print closest_key
+        #print closest_word
+        #print str(smallest_distance)
 
         return answers[qa_dict[closest_key]]
 
