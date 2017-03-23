@@ -61,9 +61,7 @@ def answer(message):
         if closest_key == "":
             closest_key = "belo"
 
-        log_wrapper("key: " + str(closest_key.encode('utf8')) +
-                    ", word: " + str(closest_word.encode('utf8')) +
-                    ", score: " + str(smallest_distance))
+        log_wrapper("::".join([closest_key.encode('utf8'), closest_word.encode('utf8'), str(smallest_distance)]))
 
         return answers[qa_dict[closest_key]]
 
