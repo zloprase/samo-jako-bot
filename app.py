@@ -61,12 +61,12 @@ def answer(message):
         if closest_key == "":
             closest_key = "belo"
 
-        log_wrapper("::".join([closest_key.decode(), closest_word.decode(), str(smallest_distance)]))
+        print ("::".join([closest_key.decode(), closest_word.decode(), str(smallest_distance)]))
 
         return answers[qa_dict[closest_key]]
 
     except:
-        log_wrapper(traceback.print_exc())
+        print traceback.print_exc()
         return "#samojakobot"
 
 
