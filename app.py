@@ -74,7 +74,7 @@ answers = {
     'veselje': u'Napraviću opšte narodno veselje. Napravićemo 20 mangala za 20 bravova i opšte narodno veselje da proslavimo predsednikovu pobedu, onako narodski što se kaže.',
     'nikolic': u'Pa verovatno bolje igram od Nikolica, imam smisla za igranku, žene kažu da sam zgodan, tako da, za početak, i tri strana jezika, a spreman sam da naučim još dva, mislim da je to za početak dovoljno.',
     'kruna': u'Verovatno ću imati prilike da upoznam predsednika kad bude predaja kruna.',
-    'tempo': u'Evo ja ti prijatelju radim od 7 jutros, pa ti vidi sad koliko je to, znači mogu da izguram 22 sata da radim.',
+    'tempo': u'Evo ja ti prijatelju radim od 7 jutros, pa ti vidi sad koliko je to, znači mogu da izguram 22 sata da radim.'.encode('utf8'),
     'arapi': u'Kad postanem predsednik neću da radim ništa, šta ima da radim, da potpisujem tamo, da igram sa Arapima, da pečem rakiju, da se šetam ambasadama. Sad da izguram ovo po 22 sata da radim i posle milina Božija.',
     'istina': u'Kako neće, ljudima treba istina, niko nije bio iskren 20-30 godina, ja izađem i kažem, kao što sam tebi rekao malopre, moj lični interes je na prvom mestu, pa onda drugi, ali ja ću davati i njima.',
     'srdja': u'Ja sam išao na privatne časove kod Srđe, 1000 dinara po času je bilo i uz to mi je matematiku predavao, jedan od koeficijenata je 2, to ti je dovoljno da budeš predsednik države. Tako da to je sve po tom principtu.',
