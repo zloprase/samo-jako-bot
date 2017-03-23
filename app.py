@@ -62,7 +62,7 @@ def answer(message):
             closest_key = "belo"
 
         print closest_key
-        print closest_word.decode()
+        print closest_word
         print str(smallest_distance)
 
         return answers[qa_dict[closest_key]]
