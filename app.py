@@ -344,11 +344,11 @@ def webhook():
                         recipient_id = messaging_event["recipient"]["id"]  # the recipient's ID, which should be your page's facebook ID
                         message_text = "jako" if "text" not in messaging_event["message"] else messaging_event["message"]["text"] # the message's text
 
-                        bot_reply =  answer(message_text.encode('utf8').decode('utf8'))
+                        bot_reply =  answer(message_text.encode('utf8'))
 
                         #log_wrapper(bot_reply)
 
-                        send_message(sender_id, bot_reply)
+                        send_message(sender_id, bot_reply.encode('utf8'))
                     except:
                         log_wrapper("Could not answer due to error")
                         log_wrapper(traceback.print_exc())
