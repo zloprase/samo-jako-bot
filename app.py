@@ -147,7 +147,7 @@ def send_message(recipient_id, message_text):
 
 
 def log_wrapper(message):  # simple wrapper for logging to stdout on heroku
-    print message
+    print str(message)
     sys.stdout.flush()
 
 
