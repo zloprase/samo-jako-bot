@@ -1,4 +1,4 @@
-# -*- coding: Latin-2 -*-
+# -*- coding: Latin2 -*-
 
 #import bot
 #print "done bot import"
@@ -287,7 +287,7 @@ def answer(message):
             for key in qa_dict.keys():
                 #print "key: " + key
                 #print "word: " + word
-                current_distance = distance.levenshtein(key.encode('Latin-2'), word.encode('Latin-2'))
+                current_distance = distance.levenshtein(key.encode('Latin2'), word.encode('Latin2'))
                 #print "distance: " + str(current_distance)
                 if current_distance < smallest_distance:
                     closest_key = key
@@ -303,8 +303,8 @@ def answer(message):
                 break
 
         log_wrapper("key, word, score")
-        log_wrapper(closest_key.encode('Latin-2'))
-        log_wrapper(closest_word.encode('Latin-2'))
+        log_wrapper(closest_key.encode('Latin2'))
+        log_wrapper(closest_word.encode('Latin2'))
         log_wrapper(str(smallest_distance))
 
         return qa_dict[closest_key]
@@ -344,11 +344,11 @@ def webhook():
                         recipient_id = messaging_event["recipient"]["id"]  # the recipient's ID, which should be your page's facebook ID
                         message_text = "jako" if "text" not in messaging_event["message"] else messaging_event["message"]["text"] # the message's text
 
-                        bot_reply =  answer(message_text.encode('Latin-2'))
+                        bot_reply =  answer(message_text.encode('Latin2'))
 
                         #log_wrapper(bot_reply)
 
-                        send_message(sender_id, bot_reply.encode('Latin-2'))
+                        send_message(sender_id, bot_reply.encode('Latin2'))
                     except:
                         log_wrapper("Could not answer due to error")
                         log_wrapper(traceback.print_exc())
