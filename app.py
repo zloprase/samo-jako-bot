@@ -1,10 +1,5 @@
 # -*- coding: utf8 -*-
 
-#import bot
-#print "done bot import"
-#from bot import get_bot
-#from chatterbot import ChatBot
-
 import json
 import os
 import sys
@@ -13,11 +8,7 @@ import traceback
 import requests
 from flask import Flask, request
 
-print "done all imports"
-
 app = Flask(__name__)
-
-print "assigned flask to app"
 
 #needs try catch
 f = open('answers.json')
@@ -36,7 +27,6 @@ def answer(message):
         count = 0
         smallest_distance = 999
         closest_key = ""
-        closest_word = ""
 
         for word in message.split():
             count += 1
@@ -45,25 +35,15 @@ def answer(message):
 
             for key in qa_dict.keys():
                 current_distance = distance.levenshtein(key, word)
-                #print "distance: " + str(current_distance)
                 if current_distance < smallest_distance:
                     closest_key = key
-                    #closest_word = word
                     smallest_distance = current_distance
             if count > 10:
-                #print 1
-                #log_wrapper("no words in first 11 match - going for the best one")
                 break
             if smallest_distance < 2:
-                #print 2
-                #log_wrapper("found the best one after " + str(count) + " tries." )
                 break
         if closest_key == "":
             closest_key = "belo"
-
-        #print closest_key
-        #print closest_word
-        #print str(smallest_distance)
 
         return answers[qa_dict[closest_key]]
 
@@ -100,10 +80,10 @@ def webhook():
                 if messaging_event.get("message"):  # someone sent us a message
                     try:
                         sender_id = messaging_event["sender"]["id"]        # the facebook ID of the person sending you the message
-                        recipient_id = messaging_event["recipient"]["id"]  # the recipient's ID, which should be your page's facebook ID
+                        #recipient_id = messaging_event["recipient"]["id"]  # the recipient's ID, which should be your page's facebook ID
                         message_text = "jako" if "text" not in messaging_event["message"] else messaging_event["message"]["text"] # the message's text
 
-                        bot_reply =  answer(message_text.encode('utf-8'))
+                        bot_reply = answer(message_text.encode('utf-8'))
 
                         log_wrapper(bot_reply.encode('utf-8'))
 
