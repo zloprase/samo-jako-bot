@@ -354,7 +354,7 @@ def webhook():
                         message_text = "jako" if "text" not in messaging_event["message"] else messaging_event["message"]["text"] # the message's text
 
                         #message_text = unicode(message_text, "utf-8", errors="ignore")
-                        bot_reply =  answer(message_text).encode('utf8')
+                        bot_reply =  answer(message_text).decode('utf8')
 
                         #log_wrapper(bot_reply)
 
