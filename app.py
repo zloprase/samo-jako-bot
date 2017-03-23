@@ -312,8 +312,8 @@ def answer(message):
                 break
 
         log_wrapper("key, word, score")
-        log_wrapper(closest_key.decode('utf8'))
-        log_wrapper(closest_word.decode('utf8'))
+        log_wrapper(closest_key.encode('utf8'))
+        log_wrapper(closest_word.encode('utf8'))
         log_wrapper(str(smallest_distance))
 
         return qa_dict[closest_key].encode('utf8')
