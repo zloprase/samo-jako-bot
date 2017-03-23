@@ -316,7 +316,7 @@ def answer(message):
         log_wrapper(closest_word.encode('utf8'))
         log_wrapper(str(smallest_distance))
 
-        return qa_dict[closest_key].encode('utf8')
+        return qa_dict[closest_key]
     except:
         log_wrapper(traceback.print_exc())
         return "#samojakobot"
