@@ -312,7 +312,7 @@ def answer(message):
                 break
 
         log_wrapper("key, word, score")
-        log_wrapper(closest_key.encode('utf8'))
+        log_wrapper(closest_key)
         log_wrapper(closest_word.encode('utf8'))
         log_wrapper(str(smallest_distance))
 
@@ -354,7 +354,7 @@ def webhook():
                         message_text = "jako" if "text" not in messaging_event["message"] else messaging_event["message"]["text"] # the message's text
 
                         #message_text = unicode(message_text, "utf-8", errors="ignore")
-                        bot_reply =  answer(message_text)
+                        bot_reply =  answer(message_text).encode('utf8')
 
                         #log_wrapper(bot_reply)
 
