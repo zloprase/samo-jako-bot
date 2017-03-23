@@ -302,9 +302,10 @@ def answer(message):
                 #log_wrapper("found the best one after " + str(count) + " tries." )
                 break
 
-        log_wrapper("Nearest words are key '" + closest_key + \
-              "' and word '" + closest_word + \
-              "' with score " + str(smallest_distance) + ".")
+        log_wrapper("key, word, score")
+        log_wrapper(closest_key)
+        log_wrapper(closest_word)
+        log_wrapper(str(smallest_distance))
 
         return qa_dict[closest_key]
     except:
@@ -343,7 +344,7 @@ def webhook():
                         recipient_id = messaging_event["recipient"]["id"]  # the recipient's ID, which should be your page's facebook ID
                         message_text = "jako" if "text" not in messaging_event["message"] else messaging_event["message"]["text"] # the message's text
 
-                        bot_reply =  answer(message_text)
+                        bot_reply =  answer(message_text.encode('utf8').decode('utf8'))
 
                         #log_wrapper(bot_reply)
 
