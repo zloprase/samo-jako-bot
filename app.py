@@ -58,13 +58,15 @@ def answer(message):
                 #print 2
                 #log_wrapper("found the best one after " + str(count) + " tries." )
                 break
+        if closest_key == "":
+            closest_key = "belo"
 
-        log_wrapper("key, word, score")
-        log_wrapper(closest_key)
-        log_wrapper(closest_word)
-        log_wrapper(str(smallest_distance))
+        log_wrapper("key: " + str(closest_key.encode('utf8')) +
+                    ", word: " + str(closest_word.encode('utf8')) +
+                    ", score: " + str(smallest_distance))
 
         return answers[qa_dict[closest_key]]
+
     except:
         log_wrapper(traceback.print_exc())
         return "#samojakobot"
@@ -147,8 +149,11 @@ def send_message(recipient_id, message_text):
 
 
 def log_wrapper(message):  # simple wrapper for logging to stdout on heroku
-    print str(message)
-    sys.stdout.flush()
+    try:
+        print str(message)
+        sys.stdout.flush()
+    except:
+        print traceback.print_exc()
 
 
 if __name__ == '__main__':
