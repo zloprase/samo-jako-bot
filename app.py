@@ -287,7 +287,7 @@ def answer(message):
             for key in qa_dict.keys():
                 #print "key: " + key
                 #print "word: " + word
-                current_distance = distance.levenshtein(key, word)
+                current_distance = distance.levenshtein(key.encode('utf8'), word.encode('utf8'))
                 #print "distance: " + str(current_distance)
                 if current_distance < smallest_distance:
                     closest_key = key
@@ -303,8 +303,8 @@ def answer(message):
                 break
 
         log_wrapper("key, word, score")
-        log_wrapper(closest_key)
-        log_wrapper(closest_word)
+        log_wrapper(closest_key.encode('utf8'))
+        log_wrapper(closest_word.encode('utf8'))
         log_wrapper(str(smallest_distance))
 
         return qa_dict[closest_key]
