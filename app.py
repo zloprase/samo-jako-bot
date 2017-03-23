@@ -390,7 +390,7 @@ def send_message(recipient_id, message_text):
 
 
 def log_wrapper(message):  # simple wrapper for logging to stdout on heroku
-    print message.encode('utf8')
+    print message
     sys.stdout.flush()
 
 
