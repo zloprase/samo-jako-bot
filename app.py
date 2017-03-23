@@ -9,7 +9,6 @@ import json
 import os
 import sys
 import traceback
-from nltk.tokenize import word_tokenize
 
 import requests
 from flask import Flask, request
@@ -39,7 +38,7 @@ def answer(message):
         closest_key = ""
         closest_word = ""
 
-        for word in word_tokenize(message):
+        for word in message.split():
             count += 1
             if len(word) < 3 or word == 'beli':
                 continue
