@@ -1,4 +1,4 @@
-#  coding: utf8 -*-
+# -*- coding: utf8 -*-
 
 #import bot
 #print "done bot import"
@@ -316,7 +316,7 @@ def answer(message):
         log_wrapper(closest_word.decode('utf8'))
         log_wrapper(str(smallest_distance))
 
-        return qa_dict[closest_key]
+        return qa_dict[closest_key].encode('utf8')
     except:
         log_wrapper(traceback.print_exc())
         return "#samojakobot"
@@ -353,7 +353,7 @@ def webhook():
                         recipient_id = messaging_event["recipient"]["id"]  # the recipient's ID, which should be your page's facebook ID
                         message_text = "jako" if "text" not in messaging_event["message"] else messaging_event["message"]["text"] # the message's text
 
-                        message_text = unicode(message_text, "utf-8", errors="ignore")
+                        #message_text = unicode(message_text, "utf-8", errors="ignore")
                         bot_reply =  answer(message_text)
 
                         #log_wrapper(bot_reply)
