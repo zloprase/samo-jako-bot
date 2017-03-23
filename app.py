@@ -48,7 +48,7 @@ def answer(message):
                 #print "distance: " + str(current_distance)
                 if current_distance < smallest_distance:
                     closest_key = key
-                    closest_word = word
+                    #closest_word = word
                     smallest_distance = current_distance
             if count > 10:
                 #print 1
