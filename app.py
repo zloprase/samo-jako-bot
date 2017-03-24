@@ -40,7 +40,7 @@ def answer(message):
             if len(word) < 3:
                 continue
             if word == 'beli':
-                word = 'bel'
+                word = 'ljub'
 
             for key in question.keys():
                 current_distance = distance.levenshtein(key, word)*distance.jaccard(key,word)

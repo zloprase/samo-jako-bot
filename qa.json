@@ -14,7 +14,8 @@
   "vidimo se":"cika",
   "pozdrav":"ljubi",
   "ziveo":"ave",
-  "izbori":"5",
+  "izbori":"glasanje",
+  "udri":"jako",
   "udri":"jako",
   "rokaj":"jako",
   "pobeda":"jako",
@@ -184,5 +185,17 @@
   "izgubiš": "krug",
   "izgubis": "krug",
   "razmisljas":"cilj",
-  "razmisljaš":"cilj"
+  "razmisljaš":"cilj",
+  "posten":"prevaren",
+  "pošten":"prevaren",
+  "poštenje":"prevaren",
+  "laže":"prevaren",
+  "prevarant":"prevaren",
+  "vucic":"vucic",
+  "vučić":"vucic",
+  "delimo":"ima",
+  "zelje":"zelja",
+  "zelja":"zelja",
+  "zelis":"zelja",
+  "zeleo":"zelja"
 }
