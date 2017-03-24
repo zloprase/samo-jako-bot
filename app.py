@@ -33,7 +33,7 @@ def answer(message):
         closest_key = ""
 
         if sum(ord(c) < 128 for c in message)/float(len(message)) < 0.30:
-            return "Лакше је ако овде пишемо латиницом, да се сви разумемо."
+            return "Aj ljubi čika na latinici"
 
         for word in message.split():
             count += 1
