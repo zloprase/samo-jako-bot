@@ -4,6 +4,7 @@ import json
 import os
 import sys
 import traceback
+import random
 
 import requests
 from flask import Flask, request
@@ -16,9 +17,12 @@ answers = json.load(f)
 f.close()
 
 f = open('qa.json')
-qa_dict = json.load(f)
+question = json.load(f)
 f.close()
 
+f = open('aggregator.json')
+agg = json.load(f)
+f.close()
 
 import distance
 def answer(message):
@@ -33,7 +37,7 @@ def answer(message):
             if len(word) < 3 or word == 'beli':
                 continue
 
-            for key in qa_dict.keys():
+            for key in question.keys():
                 current_distance = distance.levenshtein(key, word)
                 if current_distance < smallest_distance:
                     closest_key = key
@@ -45,7 +49,9 @@ def answer(message):
         if closest_key == "":
             closest_key = "belo"
 
-        return answers[qa_dict[closest_key]]
+        agg_key = question[closest_key]
+        answer_key = random.choice(agg[agg_key])
+        return answers[question[answer_key]]
 
     except:
         print traceback.print_exc()
