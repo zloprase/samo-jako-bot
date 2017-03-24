@@ -56,7 +56,7 @@ def answer(message):
         if closest_key == "":
             closest_key = "belo"
 
-        print str(closest_key)
+        #print str(closest_key)
         print str(smallest_distance)
 
         agg_key = question[closest_key]
