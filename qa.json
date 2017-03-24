@@ -17,7 +17,6 @@
   "izbori":"5",
   "udri":"jako",
   "rokaj":"jako",
-  "kako":"jako",
   "pobeda":"jako",
   "jako":"jako",
   "#samojako":"#avebeli",
@@ -69,8 +68,6 @@
   "mart":"mart",
   "bot":"bot",
   "botovi":"bot",
-  "paypal":"paypal",
-  "uplata":"paypal",
   "mladenovac":"saj",
   "formula":"formula",
   "recept":"formula",
@@ -177,9 +174,13 @@
   "preletacevic":"preletacevic",
   "preletačević":"preletacevic",
   "zoveš":"preletacevic",
+  "zoves":"preletacevic",
   "samo_jako_bot_autor":"autor",
   "easter_egg": "autor",
   "easteregg": "autor",
+  "isprogramirao": "autor",
   "izgubiš": "krug",
-  "izgubis": "krug"
+  "izgubis": "krug",
+  "razmisljas":"cilj",
+  "razmisljaš":"cilj"
 }

@@ -56,8 +56,8 @@ def answer(message):
         if closest_key == "":
             closest_key = "belo"
 
-        print closest_key
-        print smallest_distance
+        print str(closest_key)
+        print str(smallest_distance)
 
         agg_key = question[closest_key]
         answer_key = random.choice(aggregator[agg_key])
