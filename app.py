@@ -21,7 +21,7 @@ question = json.load(f)
 f.close()
 
 f = open('aggregator.json')
-agg = json.load(f)
+aggregator = json.load(f)
 f.close()
 
 import distance
@@ -32,26 +32,36 @@ def answer(message):
         smallest_distance = 999
         closest_key = ""
 
+        if sum(ord(c) < 128 for c in message)/float(len(message)) < 0.30:
+            return "Лакше је ако овде пишемо латиницом, да се сви разумемо."
+
         for word in message.split():
             count += 1
-            if len(word) < 3 or word == 'beli':
+            if len(word) < 3:
                 continue
+            if word == 'beli':
+                word = 'bel'
 
             for key in question.keys():
-                current_distance = distance.levenshtein(key, word)
+                current_distance = distance.levenshtein(key, word)*distance.jaccard(key,word)
+                current_distance += current_distance / len(word)
+                #print current_distance
                 if current_distance < smallest_distance:
                     closest_key = key
                     smallest_distance = current_distance
+                    if smallest_distance < 0.1:
+                        break
             if count > 10:
-                break
-            if smallest_distance < 2:
                 break
         if closest_key == "":
             closest_key = "belo"
 
+        print closest_key
+        print smallest_distance
+
         agg_key = question[closest_key]
-        answer_key = random.choice(agg[agg_key])
-        return answers[question[answer_key]]
+        answer_key = random.choice(aggregator[agg_key])
+        return answers[answer_key]
 
     except:
         print traceback.print_exc()
