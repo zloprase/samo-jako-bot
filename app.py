@@ -44,7 +44,7 @@ def answer(message):
 
             for key in question.keys():
                 current_distance = distance.levenshtein(key, word)*distance.jaccard(key,word)
-                current_distance += current_distance / len(word)
+                current_distance += current_distance / float(len(word))
                 #print current_distance
                 if current_distance < smallest_distance:
                     closest_key = key
