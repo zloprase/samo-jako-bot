@@ -11,7 +11,7 @@
   "cao":"ljubi",
   "ćao":"cika",
   "ajd":"cika",
-  "vidimo se":"cika",
+  "vidimo":"cika",
   "pozdrav":"ljubi",
   "ziveo":"ave",
   "izbori":"glasanje",
@@ -197,5 +197,8 @@
   "zelje":"zelja",
   "zelja":"zelja",
   "zelis":"zelja",
-  "zeleo":"zelja"
+  "zeleo":"zelja",
+  "zivis": "stan",
+  "živiš": "stan",
+  "ziveti": "stan"
 }
